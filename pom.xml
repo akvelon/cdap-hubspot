@@ -19,11 +19,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <name>Hubspot Plugins</name>
-  <groupId>io.cdap</groupId>
-  <artifactId>hubspot-plugins</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <groupId>io.github.akvelon</groupId>
+  <artifactId>cdap-hubspot-plugins</artifactId>
+  <version>1.0.2</version>
   <description>Hubspot Plugins</description>
-  <url>https://github.com/data-integrations/hubspot</url>
+  <url>https://github.com/akvelon/cdap-hubspot</url>
 
   <licenses>
     <license>
@@ -36,17 +36,16 @@
 
   <developers>
     <developer>
-      <name>CDAP</name>
-      <email>cdap-dev@googlegroups.com</email>
-      <organization>CDAP</organization>
-      <organizationUrl>http://cdap.io</organizationUrl>
+      <name>Akvelon</name>
+      <organization>Akvelon</organization>
+      <organizationUrl>https://akvelon.com/</organizationUrl>
     </developer>
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/data-integrations/hubspot.git</connection>
-    <developerConnection>scm:git:git@github.com:data-integrations/hubspot.git</developerConnection>
-    <url>https://github.com/data-integrations/hubspot.git</url>
+    <connection>scm:git:https://github.com/akvelon/cdap-hubspot.git</connection>
+    <developerConnection>scm:git:git@github.com:akvelon/cdap-hubspot.git</developerConnection>
+    <url>https://github.com/akvelon/cdap-hubspot.git</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -67,21 +66,25 @@
   </properties>
 
   <repositories>
-      <repository>
-          <id>sonatype</id>
-          <url>https://oss.sonatype.org/content/groups/public</url>
-      </repository>
+    <repository>
+      <id>conjars</id>
+      <url>https://conjars.org/repo/</url>
+    </repository>
+    <repository>
+      <id>sonatype</id>
+      <url>https://s01.oss.sonatype.org/content/groups/public</url>
+    </repository>
   </repositories>
 
   <distributionManagement>
-      <repository>
-          <id>sonatype.release</id>
-          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-      </repository>
-      <snapshotRepository>
-          <id>sonatype.snapshots</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <dependencies>
@@ -399,19 +402,61 @@
       <version>${wiremock.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.apache.beam</groupId>
-      <artifactId>beam-sdks-java-io-sparkreceiver</artifactId>
-      <version>2.41.0</version>
-    </dependency>
   </dependencies>
 
   <build>
-    <pluginManagement>
-      <plugins>
-      </plugins>
-    </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.7</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -595,8 +640,9 @@
             <version>1.6.2</version>
             <extensions>true</extensions>
             <configuration>
-              <nexusUrl>https://oss.sonatype.org</nexusUrl>
-              <serverId>sonatype.release</serverId>
+              <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
+              <serverId>ossrh</serverId>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
             </configuration>
           </plugin>
           <!-- Source JAR -->
@@ -655,6 +701,8 @@
             </configuration>
             <executions>
               <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
                 <goals>
                   <goal>sign</goal>
                 </goals>
