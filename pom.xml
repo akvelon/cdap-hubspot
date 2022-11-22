@@ -19,9 +19,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <name>Hubspot Plugins</name>
-  <groupId>io.github.akvelon</groupId>
+  <groupId>com.akvelon</groupId>
   <artifactId>cdap-hubspot-plugins</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <description>Hubspot Plugins</description>
   <url>https://github.com/akvelon/cdap-hubspot</url>
 
@@ -342,6 +342,11 @@
       <groupId>com.nerdforge</groupId>
       <artifactId>unxml</artifactId>
       <version>${unxml.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.beam</groupId>
+      <artifactId>beam-sdks-java-io-sparkreceiver</artifactId>
+      <version>2.41.0</version>
     </dependency>
 
     <!-- tests -->

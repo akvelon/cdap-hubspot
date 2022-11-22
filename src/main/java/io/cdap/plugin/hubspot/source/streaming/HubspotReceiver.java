@@ -50,7 +50,7 @@ public class HubspotReceiver extends Receiver<String> implements HasOffset {
   public void setStartOffset(Long startOffset) {
     if (startOffset != null) {
       // startOffset - 1, because offset should be inclusive.
-      this.startOffset = String.valueOf(startOffset == 0L ? 0 : startOffset - 1);
+      this.startOffset = String.valueOf(startOffset);
     }
   }
 
