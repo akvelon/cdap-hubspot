@@ -25,10 +25,10 @@ public class HubspotBatchAPISourceETLTest extends HubspotAPISourceETLTest {
 
   @BeforeClass
   public static void setupTestClass() throws Exception {
-    apiKey = System.getProperty("hubspot.api.key");
+    authToken = System.getProperty("hubspot.auth.token");
 
-    if (apiKey == null || apiKey.isEmpty()) {
-      throw new IllegalArgumentException("hubspot.api.key system property must not be empty.");
+    if (authToken == null || authToken.isEmpty()) {
+      throw new IllegalArgumentException("hubspot.auth.token system property must not be empty.");
     }
 
     BatchInitializer.setupTestClass();

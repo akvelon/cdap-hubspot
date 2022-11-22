@@ -76,13 +76,13 @@ public class HubspotSinkTest extends HydratorTestBase {
     Schema.Field.of("body", Schema.of(Schema.Type.STRING)));
   protected static String baseURL;
 
-  private static String apiKey;
+  private static String authToken;
 
   @BeforeClass
   public static void setupTestClass() throws Exception {
-    apiKey = System.getProperty("hubspot.api.key");
-    if (apiKey == null || apiKey.isEmpty()) {
-      throw new IllegalArgumentException("hubspot.api.key system property must not be empty.");
+    authToken = System.getProperty("hubspot.auth.token");
+    if (authToken == null || authToken.isEmpty()) {
+      throw new IllegalArgumentException("hubspot.auth.token system property must not be empty.");
     }
 
     setupBatchArtifacts(BATCH_ARTIFACT_ID, DataPipelineApp.class);
@@ -95,7 +95,7 @@ public class HubspotSinkTest extends HydratorTestBase {
     SourceHubspotConfig sourceHubspotConfig = new SourceHubspotConfig(testName.getMethodName(),
                                                                       null,
                                                                       "Contacts",
-                                                                      apiKey,
+                                                                      authToken,
                                                                       null,
                                                                       null,
                                                                       null,
@@ -117,7 +117,7 @@ public class HubspotSinkTest extends HydratorTestBase {
     SourceHubspotConfig sourceHubspotConfig = new SourceHubspotConfig(testName.getMethodName(),
                                                                       null,
                                                                       "Companies",
-                                                                      apiKey,
+                                                                      authToken,
                                                                       null,
                                                                       null,
                                                                       null,
@@ -140,7 +140,7 @@ public class HubspotSinkTest extends HydratorTestBase {
     SourceHubspotConfig sourceHubspotConfig = new SourceHubspotConfig(testName.getMethodName(),
                                                                       null,
                                                                       "Contact Lists",
-                                                                      apiKey,
+                                                                      authToken,
                                                                       null,
                                                                       null,
                                                                       null,
@@ -163,7 +163,7 @@ public class HubspotSinkTest extends HydratorTestBase {
     SourceHubspotConfig sourceHubspotConfig = new SourceHubspotConfig(testName.getMethodName(),
                                                                       null,
                                                                       "Deals",
-                                                                      apiKey,
+                                                                      authToken,
                                                                       null,
                                                                       null,
                                                                       null,
@@ -186,7 +186,7 @@ public class HubspotSinkTest extends HydratorTestBase {
     SourceHubspotConfig sourceHubspotConfig = new SourceHubspotConfig(testName.getMethodName(),
                                                                       null,
                                                                       "Deal Pipelines",
-                                                                      apiKey,
+                                                                      authToken,
                                                                       null,
                                                                       null,
                                                                       null,
@@ -220,7 +220,7 @@ public class HubspotSinkTest extends HydratorTestBase {
     SourceHubspotConfig sourceHubspotConfig = new SourceHubspotConfig(testName.getMethodName(),
                                                                       null,
                                                                       "Marketing Email",
-                                                                      apiKey,
+                                                                      authToken,
                                                                       null,
                                                                       null,
                                                                       null,
@@ -243,7 +243,7 @@ public class HubspotSinkTest extends HydratorTestBase {
     SourceHubspotConfig sourceHubspotConfig = new SourceHubspotConfig(testName.getMethodName(),
                                                                       null,
                                                                       "Products",
-                                                                      apiKey,
+                                                                      authToken,
                                                                       null,
                                                                       null,
                                                                       null,
@@ -266,7 +266,7 @@ public class HubspotSinkTest extends HydratorTestBase {
     SourceHubspotConfig sourceHubspotConfig = new SourceHubspotConfig(testName.getMethodName(),
                                                                       null,
                                                                       "Tickets",
-                                                                      apiKey,
+                                                                      authToken,
                                                                       null,
                                                                       null,
                                                                       null,
@@ -288,7 +288,7 @@ public class HubspotSinkTest extends HydratorTestBase {
 
     Map<String, String> properties = new ImmutableMap.Builder<String, String>()
       .put("referenceName", sourceHubspotConfig.referenceName)
-      .put(SinkHubspotConfig.API_KEY, sourceHubspotConfig.apiKey)
+      .put(SinkHubspotConfig.AUTHORIZATION_TOKEN, sourceHubspotConfig.authToken)
       .put(SinkHubspotConfig.OBJECT_TYPE, sourceHubspotConfig.objectType)
       .put(SinkHubspotConfig.OBJECT_FIELD, "body")
       .build();

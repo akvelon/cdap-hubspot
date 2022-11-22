@@ -121,12 +121,10 @@ public class HubspotSinkHelper {
       Map<String, String> headers = new HashMap<>();
       try {
         URIBuilder b = new URIBuilder(getSinkEndpoint(config));
-        if (config.apiKey != null) {
-          b.addParameter("hapikey", config.apiKey);
-        }
         URL url = new URL(b.build().toString());
         conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
+        conn.setRequestProperty("Authorization", String.format("Bearer %s", config.authToken));
         for (Map.Entry<String, String> propertyEntry : headers.entrySet()) {
           conn.addRequestProperty(propertyEntry.getKey(), propertyEntry.getValue());
         }

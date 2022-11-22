@@ -10,7 +10,7 @@ Properties
 
 **Reference Name:** Name used to uniquely identify this source for lineage, annotating metadata, etc.
 
-**API Key:** OAuth2 API Key.
+**Auth Token:** Private Application Access Token.
 
 **Object to pull:** Name of object to pull from Hubspot. Select from Contact Lists, Contacts, Email Events, 
 Email Subscription, Recent Companies, Analytics, Companies, Deals, Deal Pipelines, Marketing Email, Products, Tickets.

@@ -29,7 +29,7 @@ public class BaseHubspotConfig extends ReferencePluginConfig {
 
   public static final String API_SERVER_URL = "apiServerUrl";
   public static final String OBJECT_TYPE = "objectType";
-  public static final String API_KEY = "apiKey";
+  public static final String AUTHORIZATION_TOKEN = "authToken";
   public static final String DEFAULT_API_SERVER_URL = "https://api.hubapi.com";
 
   @Name(API_SERVER_URL)
@@ -41,10 +41,10 @@ public class BaseHubspotConfig extends ReferencePluginConfig {
   @Description("Name of object to pull from Hubspot.")
   @Macro
   public String objectType;
-  @Name(API_KEY)
-  @Description("OAuth2 API Key")
+  @Name(AUTHORIZATION_TOKEN)
+  @Description("Private App Access token")
   @Macro
-  public String apiKey;
+  public String authToken;
 
   public BaseHubspotConfig(String referenceName) {
     super(referenceName);
@@ -55,16 +55,16 @@ public class BaseHubspotConfig extends ReferencePluginConfig {
    * @param referenceName the reference name
    * @param apiServerUrl the api server url of hub spot
    * @param objectType the object type
-   * @param apiKey the api key of hub spot
+   * @param authToken the private app auth token
    */
   public BaseHubspotConfig(String referenceName,
                            String apiServerUrl,
                            String objectType,
-                           String apiKey) {
+                           String authToken) {
     super(referenceName);
     this.apiServerUrl = apiServerUrl;
     this.objectType = objectType;
-    this.apiKey = apiKey;
+    this.authToken = authToken;
   }
 
   public ObjectType getObjectType() {

@@ -94,9 +94,6 @@ public class HubspotHelper {
     URI uri = null;
     try {
       URIBuilder b = new URIBuilder(getEndpoint(sourceHubspotConfig));
-      if (sourceHubspotConfig.apiKey != null) {
-        b.addParameter("hapikey", sourceHubspotConfig.apiKey);
-      }
       if (sourceHubspotConfig.startDate != null) {
         b.addParameter("start", sourceHubspotConfig.startDate);
       }
@@ -116,7 +113,12 @@ public class HubspotHelper {
     } catch (URISyntaxException e) {
       throw new RuntimeException("Can't build valid uri", e);
     }
-    return new HttpGet(uri);
+    HttpGet request = new HttpGet(uri);
+    if (sourceHubspotConfig.authToken != null) {
+      request.addHeader("Authorization", String.format("Bearer %s", sourceHubspotConfig.authToken));
+    }
+
+    return request;
   }
 
   private HubspotPage parseJson(SourceHubspotConfig sourceHubspotConfig, String json) throws IOException {
