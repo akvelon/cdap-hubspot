@@ -119,17 +119,15 @@ public class HubspotSinkHelper {
       exception = null;
       HttpURLConnection conn = null;
       Map<String, String> headers = new HashMap<>();
+      headers.put("Authorization", String.format("Bearer %s", config.authToken));
+      headers.put("Content-Type", "application/json");
       try {
         URIBuilder b = new URIBuilder(getSinkEndpoint(config));
         URL url = new URL(b.build().toString());
         conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
-        conn.setRequestProperty("Authorization", String.format("Bearer %s", config.authToken));
         for (Map.Entry<String, String> propertyEntry : headers.entrySet()) {
           conn.addRequestProperty(propertyEntry.getKey(), propertyEntry.getValue());
-        }
-        if (!headers.containsKey("Content-Type")) {
-          conn.addRequestProperty("Content-Type", "application/json");
         }
 
         if (input.length() > 0) {
